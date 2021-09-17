@@ -58,6 +58,33 @@
 
 
 <!--begin::Body-->
+<head>
+        <base href="../../../../">
+        <meta charset="utf-8"/>
+        <title>Taxi-M</title>
+        <meta name="description" content="Login page"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="canonical" href="https://keenthemes.com/metronic"/>
+        <!--begin::Fonts-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
+        <!--end::Fonts-->
+        <!--begin::Page Custom Styles(used by this page)-->
+        <link href="{{ asset('assets/login-4.css') }}" rel="stylesheet" type="text/css"/>
+        <!--end::Page Custom Styles-->
+        <!--begin::Global Theme Styles(used by all pages)-->
+        <link href="{{ asset('assets/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/prismjs.bundle.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
+        <!--end::Global Theme Styles-->
+        <!--begin::Layout Themes(used by all pages)-->
+        <link href="{{ asset('assets/base/light.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/menu/light.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/brand/dark.css') }}" rel="stylesheet" type="text/css"/>
+        <link href=" {{ asset('assets/aside/dark.css') }}" rel="stylesheet" type="text/css"/>
+        <!--end::Layout Themes-->
+        <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+
+</head>
 <body id="kt_body"
       class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 <!--begin::Main-->
@@ -65,12 +92,12 @@
     <!--begin::Login-->
     <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
         <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat"
-             style="background-image: url('assets/media/bg/bg-3.jpg');">
+             style="background-image: url({{ asset('assets/media/bg-3.jpg') }});">
             <div class="login-form text-center p-7 position-relative overflow-hidden">
                 <!--begin::Login Header-->
                 <div class="d-flex flex-center mb-15">
                     <a href="#">
-                        <img src="assets/media/logos/logo-letter-13.png" class="max-h-75px" alt=""/>
+                        <img src="{{ asset('assets/media/logo-letter-13.png' )}}" class="max-h-75px" alt=""/>
                     </a>
                 </div>
                 <!--end::Login Header-->
@@ -106,7 +133,7 @@
                                     <input type="checkbox" name="remember"/>
                                     <span></span>Remember me</label>
                             </div>
-                            <a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary">Forget
+                            <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary">Forget
                                 Password ?</a>
                         </div>
                         <button type="submit"

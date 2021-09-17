@@ -12,6 +12,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            
+            backgroundColor: theme => ({
+                'purple' : '#6f42c1'
+            })
         },
     },
 

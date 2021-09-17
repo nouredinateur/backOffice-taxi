@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js" ></script>
         <base href="../../../../">
         <meta charset="utf-8"/>
         <title>Taxi-M</title>
@@ -23,6 +24,9 @@
         <link rel="canonical" href="https://keenthemes.com/metronic"/>
         <!--begin::Fonts-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        {{-- datatables --}}
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
         <!--end::Fonts-->
         <!--begin::Page Custom Styles(used by this page)-->
         <link href="{{ asset('assets/login-4.css') }}" rel="stylesheet" type="text/css"/>
@@ -47,9 +51,7 @@
 
             <!-- Page Heading -->
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
+             
             </header>
 
             <!-- Page Content -->
