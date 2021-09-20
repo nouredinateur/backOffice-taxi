@@ -41,6 +41,7 @@
         <link href="{{ asset('assets/menu/light.css') }} rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/brand/dark.css') }}" rel="stylesheet" type="text/css"/>
         <link href=" {{ asset('assets/aside/dark.css') }} " rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
         <!--end::Layout Themes-->
         <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
     </head>
@@ -272,7 +273,10 @@
 									<span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
 								</span>
 							</a>
-							<a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+							<form action="{{ route('logout') }}" method="POST">
+								@csrf
+								<button  type="submit" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -517,6 +521,8 @@
 		<!--begin::Page Vendors(used by this page)-->
 		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 		<!--end::Page Vendors-->
+		<script src="assets/js/pages/crud/datatables/data-sources/ajax-client-side.js"></script>
+		<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		@yield('scripts')
 	</body>
 	<!--end::Body-->
