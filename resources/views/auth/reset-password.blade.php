@@ -9,6 +9,9 @@
     </div>
     <form action="{{ route('password.update') }}" method="POST" class="form" >
         @csrf
+        
+         <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
         <div class="form-group mb-5">
             <input type="email" name="email" class="form-control h-auto form-control-solid py-4 px-8" placeholder="Email" >
         </div>
