@@ -27,6 +27,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         {{-- datatables --}}
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+		{{-- icons --}}
+		<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
         <!--end::Fonts-->
         <!--begin::Page Custom Styles(used by this page)-->
         <link href="{{ asset('assets/login-4.css') }}" rel="stylesheet" type="text/css"/>
@@ -52,7 +54,7 @@
 		<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 			<!--begin::Logo-->
 			<a href="index.html">
-				<img alt="Logo" src="assets/media/logos/logo-light.png" />
+				<img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }} " />
 			</a>
 			<!--end::Logo-->
 			<!--begin::Toolbar-->
