@@ -15,7 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js" ></script>
+        <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
         <base href="../../../../">
         <meta charset="utf-8"/>
         <title>Taxi-M</title>
@@ -53,7 +53,7 @@
 		<!--begin::Header Mobile-->
 		<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 			<!--begin::Logo-->
-			<a href="index.html">
+			<a href="#">
 				<img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }} " />
 			</a>
 			<!--end::Logo-->

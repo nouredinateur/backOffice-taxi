@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DriversController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
@@ -22,18 +23,23 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 // })->middleware(['auth'])->name('dashboard');
 
 
+Route::get('/', [dashboardController::class, 'index']);
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
     
+
+
     Route::get('/dashboard', function() {
         return view('dashboard');
     });
 
-    Route::get('/drivers', function (){
-        return view('drivers');
-    });
-    
+});
+
+Route::group(['middleware' => ['role:admin|mod']], function () {
+
+    Route::get('/drivers', [DriversController::class, 'index']);
+
     Route::get('/customers', function (){
         return view('customers');
     });
@@ -45,7 +51,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/profiles', function (){
         return view('profiles');
     });
-
+    
+    Route::resources([
+        'drivers' => DriversController::class,
+    ]);
+    
 });
+
+
 
 require __DIR__.'/auth.php';
