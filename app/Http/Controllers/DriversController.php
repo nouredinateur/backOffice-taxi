@@ -38,7 +38,16 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $driver = new Drivers();
+        $driver->avatar = $request->profile_avatar;
+        $driver->name = $request->name;
+        $driver->phoneNumber = $request->phoneNumber;
+        $driver->email = $request->email;
+        $driver->cin = $request->cin;
+        $driver->save();
+        dd($driver);
+        // return response()->json(['success'=>'Data is successfully added']);
     }
 
     /**

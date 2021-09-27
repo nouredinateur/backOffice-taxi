@@ -9,7 +9,7 @@
      </h3>
     </div>
     <!--begin::Form-->
-    <form class="form">
+    <form action="{{  route('drivers.store')  }}" method="POST" class="form">
      <div class="card-body">
         <div class="form-group">
             <div class="image-input image-input-outline" id="kt_image_1">
@@ -39,17 +39,17 @@
         <label>Email</label>
         <div class="input-group">
          <div class="input-group-prepend"><span class="input-group-text">@</span></div>
-         <input type="text" class="form-control" placeholder="Email" />
+         <input type="text" name="email" class="form-control" placeholder="Email" />
         </div>
         <span class="form-text text-muted">Some help content goes here</span>
        </div>
        <div class="form-group">
         <label>CIN</label>
-        <input type="number" class="form-control" name="phoneNumber" placeholder="Driver's cin"/>
+        <input type="text" name="cin"class="form-control" name="phoneNumber" placeholder="Driver's cin"/>
       </div>
      </div>
      <div class="card-footer">
-      <button type="reset" class="btn btn-primary mr-2">Submit</button>
+      <button type="reset" type="submit" class="btn btn-primary mr-2">Submit</button>
       <button type="reset" class="btn btn-secondary">Cancel</button>
      </div>
     </form>

@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\dashboardController;
-use App\Http\Controllers\DriversController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\DriversController;
+use App\Http\Controllers\dashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,17 +27,18 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 Route::get('/', [dashboardController::class, 'index']);
 
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    
-
-
-    Route::get('/dashboard', function() {
-        return view('dashboard');
-    });
-
+Route::get('/permission', function() {
+    return view('crud.permission');
 });
 
-Route::group(['middleware' => ['role:admin|mod']], function () {
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', function() {
+        return view('board');
+    });
+});
+// Route::get('/drivers', [DriversController::class, 'index']);
+
+Route::group(['middleware' => ['role:Super-Admin|admin|mod']], function () {
 
     Route::get('/drivers', [DriversController::class, 'index']);
 
@@ -56,6 +58,8 @@ Route::group(['middleware' => ['role:admin|mod']], function () {
         'drivers' => DriversController::class,
     ]);
     
+    Route::get('/roles', [RoleController::class, 'index']);
+
 });
 
 

@@ -18,7 +18,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        if(Auth::user()->hasRole('admin')  || Auth::user()->hasRole('mod')){
+        if(Auth::user()->hasRole('admin')  || Auth::user()->hasRole('mod') ||  Auth::user()->can('delete-users') ){
 
             return $next($request);
 

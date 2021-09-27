@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -14,7 +16,14 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::get();
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('crud.roles', [
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'users' => $users,
+        ]);
     }
 
     /**

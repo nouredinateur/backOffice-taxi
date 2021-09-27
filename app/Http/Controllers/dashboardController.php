@@ -17,9 +17,9 @@ class dashboardController extends Controller
 
     public function index(){
 
-         $role = Role::findByName('user');
-         $role->revokePermissionTo('read-users');
-        //  User::with('roles')->get();
-        return view('dashboard');
+        //  $role = Role::findByName('user');
+        //  $role->revokePermissionTo('read-users');
+        // //  User::with('roles')->get();
+        return view('board');
     }
 }
