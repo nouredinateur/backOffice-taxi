@@ -23,45 +23,49 @@ use App\Http\Controllers\dashboardController;
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-
-Route::get('/', [dashboardController::class, 'index']);
-
+Route::middleware(['auth', 'permission:dashboard'])->group(function () {
+    Route::get('/', [dashboardController::class, 'index']);
+});
 
 Route::get('/permission', function() {
     return view('crud.permission');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function() {
         return view('board');
     });
 });
-// Route::get('/drivers', [DriversController::class, 'index']);
 
-Route::group(['middleware' => ['role:Super-Admin|admin|mod']], function () {
+Route::get('/notadminplace',function() {
+    return view('errors.404');
+});
+
+Route::group(['middleware' => ['permission:dashboard']], function () {
 
     Route::get('/drivers', [DriversController::class, 'index']);
 
     Route::get('/customers', function (){
         return view('customers');
     });
-    
+
     Route::get('/routes', function (){
         return view('routes');
     });
-    
+
     Route::get('/profiles', function (){
         return view('profiles');
     });
-    
+
     Route::resources([
         'drivers' => DriversController::class,
     ]);
-    
-    Route::get('/roles', [RoleController::class, 'index']);
+
+    Route::get('/rolesusers', [RoleController::class, 'index']);
+
+    Route::get('/roles', [RoleController::class, 'rolesIndex']);
+
 
 });
-
-
 
 require __DIR__.'/auth.php';

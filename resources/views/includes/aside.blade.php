@@ -126,6 +126,18 @@
 								</span>
 							</li>
 							<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<a href="/rolesusers" class="menu-link menu-toggle">
+									<i class="menu-bullet menu-bullet-line">
+										<span></span>
+									</i>
+									<span class="menu-text">Users</span>
+									{{-- <span class="menu-label">
+										<span class="label label-rounded label-primary">6</span>
+									</span> --}}
+									<i class="menu-arrow"></i>
+								</a>		
+							</li>
+							<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 								<a href="/roles" class="menu-link menu-toggle">
 									<i class="menu-bullet menu-bullet-line">
 										<span></span>

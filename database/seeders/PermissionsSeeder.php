@@ -21,23 +21,26 @@ class PermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'create-users']);
-        Permission::create(['name' => 'delete-users']);
-        Permission::create(['name' => 'read-users']);
-        Permission::create(['name' => 'update-users']);
+        Permission::create(['name' => 'users.create']);
+        Permission::create(['name' => 'users.delete']);
+        Permission::create(['name' => 'users.read']);
+        Permission::create(['name' => 'users.update']);
+        Permission::create(['name' => 'dashboard']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'admin']);
-        $role1->givePermissionTo('create-users');
-        // $role1->givePermissionTo('delete-users');
-        $role1->givePermissionTo('read-users');
-        $role1->givePermissionTo('update-users');
+        $role1->givePermissionTo('users.create');
+        // $role1->givePermissionTo('users.delete');
+        $role1->givePermissionTo('users.read');
+        $role1->givePermissionTo('users.update');
+        $role1->givePermissionTo('dashboard');
 
 
 
         $role2 = Role::create(['name' => 'mod']);
-        $role2->givePermissionTo('read-users');
-        $role2->givePermissionTo('update-users');
+        $role2->givePermissionTo('users.read');
+        $role2->givePermissionTo('users.update');
+        $role2->givePermissionTo('dashboard');//not seeded yet
 
 
         $role3 = Role::create(['name' => 'user']);

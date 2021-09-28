@@ -19,11 +19,15 @@ class RoleController extends Controller
         $users = User::get();
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('crud.roles', [
+        return view('crud.userRoles', [
             'roles' => $roles,
             'permissions' => $permissions,
             'users' => $users,
         ]);
+    }
+
+    public function rolesIndex(){
+        return view('crud.roles');
     }
 
     /**

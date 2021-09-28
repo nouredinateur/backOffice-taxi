@@ -40,7 +40,7 @@
         <!--end::Global Theme Styles-->
         <!--begin::Layout Themes(used by all pages)-->
         <link href="{{ asset('assets/base/light.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('assets/menu/light.css') }} rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/menu/light.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/brand/dark.css') }}" rel="stylesheet" type="text/css"/>
         <link href=" {{ asset('assets/aside/dark.css') }} " rel="stylesheet" type="text/css"/>
 		<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
