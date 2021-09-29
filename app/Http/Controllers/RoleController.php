@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -27,7 +28,25 @@ class RoleController extends Controller
     }
 
     public function rolesIndex(){
-        return view('crud.roles');
+        $users = User::get();
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('crud.roles' , [
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'users' => $users,
+        ]);
+    }
+
+    public function permissionIndex(){
+        $users = User::get();
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('crud.permission' , [
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -37,7 +56,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -48,7 +67,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'role' => 'required|max:100|min:3',
+        ]);
+
+        $role = $request->role;
+        Role::create(['name' => $role]);
+        return redirect('/roles');
     }
 
     /**
@@ -59,7 +84,14 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        // $thisrole = Role::where('id', $role->id)->get();
+        $thisRole = Role::findOrFail($role->id);
+        $thisRolePermissions = $thisRole->permissions->pluck('name');
+        
+        return view('show.role', [
+            'role' => $thisRole,
+            'permissions' => $thisRolePermissions
+        ]);
     }
 
     /**
@@ -93,6 +125,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        Role::where('id', $role->id)->delete();
+
+        return redirect('/roles');
     }
 }

@@ -27,9 +27,6 @@ Route::middleware(['auth', 'permission:dashboard'])->group(function () {
     Route::get('/', [dashboardController::class, 'index']);
 });
 
-Route::get('/permission', function() {
-    return view('crud.permission');
-});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function() {
@@ -37,9 +34,9 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/notadminplace',function() {
-    return view('errors.404');
-});
+// Route::get('/notadminplace',function() {
+//     return view('errors.404');
+// });
 
 Route::group(['middleware' => ['permission:dashboard']], function () {
 
@@ -59,13 +56,14 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
 
     Route::resources([
         'drivers' => DriversController::class,
+        'roles' => RoleController::class
     ]);
 
     Route::get('/rolesusers', [RoleController::class, 'index']);
 
     Route::get('/roles', [RoleController::class, 'rolesIndex']);
 
-
+    Route::get('/permission', [RoleController::class, 'permissionIndex']);
 });
 
 require __DIR__.'/auth.php';
