@@ -19,6 +19,21 @@
                 @error('role')
                     <div class="alert alert-danger m-2">{{ $message }}</div>
                 @enderror
+                <div class="mt-4">
+                   
+                    <div class="form-group">
+                        <label>Assign Permissions to the role</label>
+                        @foreach ($permissions as $permission)
+                        <div class="checkbox-inline">
+                            <label class="checkbox checkbox-lg">
+                                <input type="checkbox" value="{{ $permission->name }}"  name="permission[]"/>
+                                <span></span>
+                                {{ $permission->name }}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
               <div class="mt-4 h-4">
                <button type="submit" class="btn btn-primary mr-2">Submit</button>
               </div>

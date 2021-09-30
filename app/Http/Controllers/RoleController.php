@@ -70,9 +70,10 @@ class RoleController extends Controller
         $validated = $request->validate([
             'role' => 'required|max:100|min:3',
         ]);
-
         $role = $request->role;
-        Role::create(['name' => $role]);
+        $thisrole =Role::create(['name' => $role]);
+        $permissions = $request->permission;
+        $thisrole->givePermissionTo($permissions);
         return redirect('/roles');
     }
 
