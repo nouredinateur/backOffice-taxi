@@ -17,7 +17,7 @@
               <label>Role Name</label>
               <input type="text" name="role" value="{{ old('role') }}" class="form-control form-control-solid" placeholder="Role"/>
                 @error('role')
-                    <div class="alert alert-danger m-2">{{ $message }}</div>
+                    <div class="alert alert-danger p-2 m-2">{{ $message }}</div>
                 @enderror
                 <div class="mt-4">
                    
@@ -26,12 +26,15 @@
                         @foreach ($permissions as $permission)
                         <div class="checkbox-inline">
                             <label class="checkbox checkbox-lg">
-                                <input type="checkbox" value="{{ $permission->name }}"  name="permission[]"/>
+                                <input type="checkbox" value="{{ $permission->name }}" {{ in_array($permission->name, old('permission', [])) ? 'checked' : '' }} name="permission[]"/>
                                 <span></span>
                                 {{ $permission->name }}
                             </label>
                         </div>
                         @endforeach
+                        @error('permission')
+                            <div class="alert alert-danger p-2 m-2">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
               <div class="mt-4 h-4">
@@ -175,8 +178,12 @@
             </div>
             <!--begin::Text-->
             <div class="d-flex flex-column font-weight-bold">
-             
-                <a @if($role->name != "Super-Admin") href="{{ route('roles.show' ,  $role->id )}}"  class="text-dark text-hover-primary mb-1 font-size-lg " @else class="text-sucess" @endif>{{ $role->name }}</a>
+                @if($role->name != "Super-Admin")
+                <a  href="{{ route('roles.show' ,  $role->id )}}"  class="text-dark text-hover-primary mb-1 font-size-lg ">{{ $role->name }}</a>
+                @else
+                <a  href="{{ route('roles.show' ,  $role->id )}}"  class="text-danger text-hover-primary mb-1 font-size-lg ">{{ $role->name }}</a>
+                <span class="text-muted -mt-2 font-weight-bold font-size-sm">Protected</span>
+                @endif 
             </div>
             <div class="ml-auto">
                @if($role->name != "Super-Admin")

@@ -49,6 +49,18 @@ class RoleController extends Controller
         ]);
     }
 
+    public function revokePermissions(Request $request , Role $role){
+
+        $id =$request->id;
+        $role = $request->role;
+        $permission = $request->permission;
+
+        $thisRole = Role::findByName($role);
+        $thisRole->revokePermissionTo($permission);
+
+        return redirect()->to('roles/'.$id);
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -67,11 +79,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'role' => 'required|max:100|min:3',
+            'permission' => 'required'
         ]);
+       
         $role = $request->role;
-        $thisrole =Role::create(['name' => $role]);
+        $thisrole = Role::create(['name' => $role]);
         $permissions = $request->permission;
         $thisrole->givePermissionTo($permissions);
         return redirect('/roles');
@@ -88,10 +102,11 @@ class RoleController extends Controller
         // $thisrole = Role::where('id', $role->id)->get();
         $thisRole = Role::findOrFail($role->id);
         $thisRolePermissions = $thisRole->permissions->pluck('name');
-        
+        $allperms = Permission::all();
         return view('show.role', [
             'role' => $thisRole,
-            'permissions' => $thisRolePermissions
+            'permissions' => $thisRolePermissions,
+            'allperms' => $allperms,
         ]);
     }
 

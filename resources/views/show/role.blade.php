@@ -25,13 +25,48 @@
             <h3 class="card-label">{{ $role->name }} <small>Role<small> </h3>
         </div>
         <div class="ml-auto p-5">
-            <button type="button" class="btn btn-primary">Assign Permission</button>
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Assign Permission</button>
         </div>
+                
+
+                <!-- Modal-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                </button>
+                            </div>
+                            <form action="" >
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Grant a permission</label>
+                                    <div class="radio-inline">          
+                                            @foreach ($allperms as $perm)
+                                              @if ( !$role->hasPermissionTo($perm->name))
+                                                <label class="radio radio-rounded">
+                                                    <input type="radio" checked="checked" name="radios15_1"/>
+                                                    <span></span>
+                                                    {{ $perm->name }}
+                                                </label>
+                                              @endif
+                                            @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
     </div>
     <div class="card-body">
              <!--begin::List Widget 11-->
-            
-
                 <!--begin::Header-->
                 <div class="card-header border-0">
                     <h3 class="card-title font-weight-bolder text-dark">Permissions</h3>
@@ -63,7 +98,14 @@
                              
                         </div>
                         <div class="ml-auto">
-                            <input type="submit" value="Delete" class="btn btn-warning"> 
+
+                            <form method="POST" action="{{ route('revoke') }}">
+                                @csrf 
+                                <input type="text" name="id" value="{{ $role->id }}" hidden>
+                                <input type="text" name="role" value="{{ $role->name }}" hidden>
+                                <input type="text" name="permission" value="{{ $permission }}" hidden>
+                                <input type="submit" value="Revoke Permission" class="btn btn-warning"> 
+                            </form>
                         </div> 
                         <!--end::Title-->
                     </div>

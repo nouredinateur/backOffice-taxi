@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\DriversController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,14 +57,17 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
 
     Route::resources([
         'drivers' => DriversController::class,
-        'roles' => RoleController::class
+        'roles' => RoleController::class,
+        'permission' => PermissionController::class
     ]);
+
+    Route::post('/revoke', [RoleController::class, 'revokePermissions'])->name('revoke');
 
     Route::get('/rolesusers', [RoleController::class, 'index']);
 
     Route::get('/roles', [RoleController::class, 'rolesIndex']);
 
-    Route::get('/permission', [RoleController::class, 'permissionIndex']);
+    // Route::get('/permission', [RoleController::class, 'permissionIndex']);
 });
 
 require __DIR__.'/auth.php';
