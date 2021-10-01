@@ -1,7 +1,9 @@
 <?php
 
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\DriversController;
 use App\Http\Controllers\dashboardController;
@@ -18,11 +20,6 @@ use App\Http\Controllers\PermissionController;
 |
 */
 
-// Route::get('/', [dashboardController::class, 'index']);
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'permission:dashboard'])->group(function () {
     Route::get('/', [dashboardController::class, 'index']);
@@ -58,14 +55,16 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
     Route::resources([
         'drivers' => DriversController::class,
         'roles' => RoleController::class,
-        'permission' => PermissionController::class
+        'permissions' => PermissionController::class,
+        'users' => UserController::class
     ]);
 
-    Route::post('/revoke', [RoleController::class, 'revokePermissions'])->name('revoke');
-
-    Route::get('/rolesusers', [RoleController::class, 'index']);
-
-    Route::get('/roles', [RoleController::class, 'rolesIndex']);
+    Route::post('/revokepermission', [RoleController::class, 'revokePermissions'])->name('revokePermission');
+    Route::post('/assignpermission', [RoleController::class, 'assignPermissions'])->name('assignPermission');
+    Route::post('/revokerole', [PermissionController::class, 'revokeRoles'])->name('revokeRole');
+    Route::post('/assignrole', [PermissionController::class, 'assignRoles'])->name('assignRole');
+    // Route::get('/rolesusers', [UserController::class, 'index']);
+    // Route::get('/roles', [RoleController::class, 'rolesIndex']);
 
     // Route::get('/permission', [RoleController::class, 'permissionIndex']);
 });

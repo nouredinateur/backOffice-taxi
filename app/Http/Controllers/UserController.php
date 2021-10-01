@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class PermissionController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class PermissionController extends Controller
         $users = User::get();
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('crud.permissions', [
+        return view('crud.userRoles', [
             'roles' => $roles,
             'permissions' => $permissions,
             'users' => $users,
@@ -44,17 +44,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'permission' => 'required|max:100|min:3',
-            'role' => 'required'
-        ]);
-        $permission = $request->permission;
-        $roles = $request->role;
-        // dd($roles);
-        $thispermission = Permission::firstOrCreate(['name' => $permission]);
-        // $thispermission = Permission::create(['name' => $permission]);
-        $thispermission->assignRole($roles);
-        return redirect('/permissions');
+        //
     }
 
     /**
@@ -65,38 +55,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $thisPermission = Permission::findOrFail($id);
-        $thisPermissionRoles = $thisPermission->roles->pluck('name');
-        $allrols = Role::all();
-        return view('show.permission', [
-            'permission' => $thisPermission,
-            'roles' => $thisPermissionRoles,
-            'allroles' => $allrols
-        ]);
-    }
-
-    public function revokeRoles(Request $request)
-    {
-        $id = $request->id;
-        $roleName = $request->role;
-        $permissionName = $request->permission;
-        $role = Role::findByName($roleName);
-        $permission = Permission::findByName($permissionName);
-        $role->revokePermissionTo($permission);
-
-        return redirect()->to('permissions/'.$id);
-    }
-
-    public function assignRoles(Request $request)
-    {
-        $id =$request->id;
-        $role = $request->role;
-        $permission = $request->permission;
-        
-        $thisRole = Role::findByName($role);
-        $thisRole->givePermissionTo($permission);
-
-        return redirect()->to('permissions/'.$id);
+        //
     }
 
     /**
@@ -130,8 +89,6 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        Permission::where('id', $id)->delete();
-
-        return redirect('/permissions');
+        //
     }
 }

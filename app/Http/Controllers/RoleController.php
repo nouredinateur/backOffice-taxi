@@ -20,17 +20,6 @@ class RoleController extends Controller
         $users = User::get();
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('crud.userRoles', [
-            'roles' => $roles,
-            'permissions' => $permissions,
-            'users' => $users,
-        ]);
-    }
-
-    public function rolesIndex(){
-        $users = User::get();
-        $roles = Role::all();
-        $permissions = Permission::all();
         return view('crud.roles' , [
             'roles' => $roles,
             'permissions' => $permissions,
@@ -38,7 +27,8 @@ class RoleController extends Controller
         ]);
     }
 
-    public function permissionIndex(){
+    public function permissionIndex()
+    {
         $users = User::get();
         $roles = Role::all();
         $permissions = Permission::all();
@@ -49,14 +39,27 @@ class RoleController extends Controller
         ]);
     }
 
-    public function revokePermissions(Request $request , Role $role){
-
+    public function revokePermissions(Request $request , Role $role)
+    {
         $id =$request->id;
         $role = $request->role;
         $permission = $request->permission;
 
         $thisRole = Role::findByName($role);
         $thisRole->revokePermissionTo($permission);
+
+        return redirect()->to('roles/'.$id);
+
+    }
+
+    public function assignPermissions(Request $request , Role $role)
+    {
+        $id =$request->id;
+        $role = $request->role;
+        $permission = $request->permission;
+
+        $thisRole = Role::findByName($role);
+        $thisRole->givePermissionTo($permission);
 
         return redirect()->to('roles/'.$id);
 
@@ -85,7 +88,7 @@ class RoleController extends Controller
         ]);
        
         $role = $request->role;
-        $thisrole = Role::create(['name' => $role]);
+        $thisrole = Role::firstOrCreate(['name' => $role]);
         $permissions = $request->permission;
         $thisrole->givePermissionTo($permissions);
         return redirect('/roles');

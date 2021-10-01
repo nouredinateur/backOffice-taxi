@@ -186,15 +186,50 @@
                 @endif 
             </div>
             <div class="ml-auto">
-               @if($role->name != "Super-Admin")
-                <form method="POST" action="{{ route('roles.destroy' ,  $role->id )}}">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" value="Delete" class="btn btn-warning"> 
-                </form>
-               @endif
+                @if($role->name != "Super-Admin")
+                <div>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalSizeLg">Delete</button>
+                </div>
+                @endif   
             </div>
             <!--end::Text-->
+        </div>
+
+
+           <!-- Modal-->
+           <div class="modal fade" id="exampleModalSizeLg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="POST" action="{{ route('roles.destroy' ,  $role->id )}}">
+                        @csrf
+                        @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Role</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+                        <span class="mx-auto svg-icon svg-icon-5x svg-icon-danger">
+                            <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Shield-thunder.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
+                                    <polygon fill="#000000" opacity="0.3" points="11.3333333 18 16 11.4 13.6666667 11.4 13.6666667 7 9 13.6 11.3333333 13.6"/>
+                                </g>
+                            </svg><!--end::Svg Icon-->
+                        </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger font-weight-bold">Delete</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
         @endforeach
         <!--end::Item-->

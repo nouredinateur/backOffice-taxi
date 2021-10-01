@@ -22,7 +22,7 @@
             </span>
         </div>
         <div class="mr-auto card-title">
-            <h3 class="card-label">{{ $role->name }} <small>Role<small> </h3>
+            <h3 class="card-label">{{ $role->name }} <small class="ml-2">Role<small> </h3>
         </div>
         <div class="ml-auto p-5">
             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Assign Permission</button>
@@ -34,20 +34,23 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Assign Permission</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <i aria-hidden="true" class="ki ki-close"></i>
                                 </button>
                             </div>
-                            <form action="" >
+                            <form action="{{ route('assignPermission') }}" method="POST" >
+                            @csrf
                             <div class="modal-body">
+                                <input type="text" name="id" value="{{ $role->id }}" hidden>
+                                <input type="text" name="role" value="{{ $role->name }}" hidden>
                                 <div class="form-group">
                                     <label>Grant a permission</label>
                                     <div class="radio-inline">          
                                             @foreach ($allperms as $perm)
                                               @if ( !$role->hasPermissionTo($perm->name))
                                                 <label class="radio radio-rounded">
-                                                    <input type="radio" checked="checked" name="radios15_1"/>
+                                                    <input type="radio" value="{{ $perm->name }}"  checked="checked" name="permission"/>
                                                     <span></span>
                                                     {{ $perm->name }}
                                                 </label>
@@ -64,6 +67,8 @@
                         </div>
                     </div>
                 </div>
+
+                
     </div>
     <div class="card-body">
              <!--begin::List Widget 11-->
@@ -98,14 +103,36 @@
                              
                         </div>
                         <div class="ml-auto">
-
-                            <form method="POST" action="{{ route('revoke') }}">
-                                @csrf 
-                                <input type="text" name="id" value="{{ $role->id }}" hidden>
-                                <input type="text" name="role" value="{{ $role->name }}" hidden>
-                                <input type="text" name="permission" value="{{ $permission }}" hidden>
-                                <input type="submit" value="Revoke Permission" class="btn btn-warning"> 
-                            </form>
+                            <div>
+                                <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalSizeLg">Revoke Permission</button>
+                            </div>
+                            <div class="modal fade" id="exampleModalSizeLg" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Warning Role will lose permission</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-lg-center m-2">This action will remove this permission from the role</h6>
+                                        </div>
+                                        <form method="POST" action="{{ route('revokePermission') }}">
+                                            @csrf 
+                                        <div>
+                                            <input type="text" name="id" value="{{ $role->id }}" hidden>
+                                            <input type="text" name="role" value="{{ $role->name }}" hidden>
+                                            <input type="text" name="permission" value="{{ $permission }}" hidden>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger font-weight-bold">Remove Role</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div> 
                         <!--end::Title-->
                     </div>

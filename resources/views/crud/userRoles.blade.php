@@ -7,60 +7,9 @@
             <div class="card card-custom card-stretch gutter-b">
                 <!--begin::Header-->
                 <div class="card-header border-0">
-                    <h3 class="card-title font-weight-bolder text-dark">Authors</h3>
+                    <h3 class="card-title font-weight-bolder text-dark">USERS</h3>
                     <div class="card-toolbar">
-                        <div class="dropdown dropdown-inline">
-                            <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">August</a>
-                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                <!--begin::Navigation-->
-                                <ul class="navi navi-hover">
-                                    <li class="navi-header pb-1">
-                                        <span class="text-primary text-uppercase font-weight-bold font-size-sm">Add new:</span>
-                                    </li>
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-shopping-cart-1"></i>
-                                            </span>
-                                            <span class="navi-text">Order</span>
-                                        </a>
-                                    </li>
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-calendar-8"></i>
-                                            </span>
-                                            <span class="navi-text">Event</span>
-                                        </a>
-                                    </li>
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-graph-1"></i>
-                                            </span>
-                                            <span class="navi-text">Report</span>
-                                        </a>
-                                    </li>
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-rocket-1"></i>
-                                            </span>
-                                            <span class="navi-text">Post</span>
-                                        </a>
-                                    </li>
-                                    <li class="navi-item">
-                                        <a href="#" class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-writing"></i>
-                                            </span>
-                                            <span class="navi-text">File</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!--end::Navigation-->
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
                 <!--end::Header-->
@@ -85,9 +34,36 @@
                                 }}
                             </span>
                         </div>
+                        <div>
+                            <div class="ml-auto p-5">
+                                <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Assign Role</button>
+                            </div>
+                        </div>
+                         <!-- Modal-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Assign Permission</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                </button>
+                            </div>
+                         
+                            <div class="modal-body">
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
                         <!--end::Text-->
                         <!--begin::Dropdown-->
-                        <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions" data-placement="left">
+                        {{-- <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions" data-placement="left">
                             <a href="#" class="btn btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ki ki-bold-more-hor"></i>
                             </a>
@@ -144,7 +120,7 @@
                                 </ul>
                                 <!--end::Navigation-->
                             </div>
-                        </div>
+                        </div> --}}
                         <!--end::Dropdown-->
                     </div>
                     <!--end::Item-->
