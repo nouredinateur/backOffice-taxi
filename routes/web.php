@@ -2,12 +2,12 @@
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\UserController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\DriversController;
 use App\Http\Controllers\dashboardController;
-use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +32,15 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-// Route::get('/notadminplace',function() {
-//     return view('errors.404');
-// });
+Route::get('/notadminplace',function() {
+    return view('errors.404');
+});
 
 Route::group(['middleware' => ['permission:dashboard']], function () {
+
+    Route::get('/dashboard', function() {
+                return view('board');
+            });
 
     Route::get('/drivers', [DriversController::class, 'index']);
 
@@ -65,7 +69,6 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
     Route::post('/assignrole', [PermissionController::class, 'assignRoles'])->name('assignRole');
     // Route::get('/rolesusers', [UserController::class, 'index']);
     // Route::get('/roles', [RoleController::class, 'rolesIndex']);
-
     // Route::get('/permission', [RoleController::class, 'permissionIndex']);
 });
 

@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="card card-custom card-stretch" id="kt_page_stretched_card">
-
     <div class="card-header">
         <!--begin::Symbol-->
         <div class="symbol symbol-40 symbol-light-info p-4">
@@ -104,36 +103,17 @@
                             <a href="#" class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{  $role }}</a>
                         </div>
                         <div class="ml-auto">
-                            <div class="modal fade" id="exampleModalSizeLg" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Warning Role will lose permission</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                            </button>
-                                        </div>
-                                        <div>
-                                            <h6 class="text-lg-center m-2">This action will remove this permission from the role</h6>
-                                        </div>
-                                        <form method="POST" action="{{ route('revokeRole') }}">
-                                        <div>
-                                                @csrf 
-                                                <input type="text" name="id" value="{{ $permission->id }}" hidden>
-                                                <input type="text" name="permission" value="{{ $permission->name }}" hidden>
-                                                <input type="text" name="role" value="{{ $role }}" hidden>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-danger font-weight-bold">Remove Role</button>
-                                        </div>
-                                        </form>
-                                    </div>
+                            <form method="POST" action="{{ route('revokeRole') }}">
+                                <div>
+                                        @csrf 
+                                        <input type="text" name="id" value="{{ $permission->id }}" hidden>
+                                        <input type="text" name="permission" value="{{ $permission->name }}" hidden>
+                                        <input type="text" name="role" value="{{ $role }}" hidden>
                                 </div>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalSizeLg">Remove Role</button>
-                            </div>
+                                <div>
+                                    <button type="submit" class="btn btn-warning">Remove Role</button>
+                                </div>
+                            </form>
                         </div> 
                         <!--end::Title-->
                     </div>

@@ -2,20 +2,20 @@
 
 namespace Database\Factories;
 
-use App\Models\Drivers;
-use App\Models\Model;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-class DriversFactory extends Factory
+
+class ClientFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Drivers::class;
+    protected $model = Client::class;
 
     /**
      * Define the model's default state.

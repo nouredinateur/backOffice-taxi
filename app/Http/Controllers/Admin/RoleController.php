@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Http\Controllers\Controller;
+
 
 class RoleController extends Controller
 {
@@ -20,6 +22,7 @@ class RoleController extends Controller
         $users = User::get();
         $roles = Role::all();
         $permissions = Permission::all();
+        // response()->json()
         return view('crud.roles' , [
             'roles' => $roles,
             'permissions' => $permissions,
