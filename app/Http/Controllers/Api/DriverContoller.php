@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Driver;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DriverContoller extends Controller
 {
@@ -14,18 +15,10 @@ class DriverContoller extends Controller
      */
     public function index()
     {
-        //
+        $drivers = Driver::all();
+        return response()->json($drivers);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +28,27 @@ class DriverContoller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'avatar' => 'required',
+            'email' => 'required',
+            'cin' => 'required',
+            'phoneNumber' => 'required',
+            'password' => 'required'
+        ]);
+
+        $newDriver = new Driver([
+            'name' => $request->get('name'), 
+            'avatar' => $request->get('avatar'),
+            'email' => $request->get('email'),
+            'cin' => $request->get('cin'),
+            'phoneNumber' => $request->get('phoneNumber'),
+            'password' => $request->get('password'),
+        ]);
+
+        $newDriver->save();
+
+        return response()->json($newDriver);
     }
 
     /**
@@ -46,20 +59,11 @@ class DriverContoller extends Controller
      */
     public function show($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        return response()->json($driver);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+  
     /**
      * Update the specified resource in storage.
      *
@@ -69,7 +73,28 @@ class DriverContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+
+        $request->validate([
+
+            'name' => 'required',
+            'avatar' => 'required',
+            'email' => 'required',
+            'cin' => 'required',
+            'phoneNumber' => 'required',
+            'password' => 'required'
+        ]);
+
+        $driver->name = $request->get('name');
+        $driver->avatar = $request->get('avatar');
+        $driver->email = $request->get('email');
+        $driver->cin = $request->get('cin');
+        $driver->phoneNumber = $request->get('phoneNumber');
+        $driver->password = $request->get('password');
+        $driver->save();
+
+        return response()->json($driver);
+
     }
 
     /**
@@ -80,6 +105,8 @@ class DriverContoller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $driver->delete();
+        return response()->json($driver::all());
     }
 }

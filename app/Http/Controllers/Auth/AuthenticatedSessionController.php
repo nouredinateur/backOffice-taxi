@@ -52,16 +52,16 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
     //if the user has the role of admin or mod they'll get redirected to the dashboard else they'll get redirected to home
-    public function redirectTo(){
+    // public function redirectTo(){
 
-        if(Auth::user()->hasRole('admin')  || Auth::user()->hasRole('mod')){
+    //     if(Auth::user()->hasRole('admin')  || Auth::user()->hasRole('mod')){
 
-            return view('dashboard');
+    //         return view('dashboard');
 
-        }else{
+    //     }else{
 
-            return view('welcome');
+    //         return view('welcome');
 
-        }
-    }
+    //     }
+    // }
 }

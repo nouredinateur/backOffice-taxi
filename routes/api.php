@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\API\ClientContoller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DriversController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\API\ClientContoller;
+use App\Http\Controllers\API\DriverContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +23,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('clients', ClientContoller::class);
+
+// Route::group(['middleware' => ['jwt.verify']], function() {
+
+// });
+
+// Route::apiResource('clients', ClientContoller::class);
+// Route::apiResource('drivers', DriverContoller::class);
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+});

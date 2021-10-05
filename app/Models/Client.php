@@ -18,4 +18,15 @@ class Client extends Model
         'phoneNumber',
         'password'
     ];
+
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

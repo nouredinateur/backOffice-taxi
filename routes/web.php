@@ -42,7 +42,7 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
                 return view('board');
             });
 
-    Route::get('/drivers', [DriversController::class, 'index']);
+    // Route::get('/drivers', [DriversController::class, 'index']);
 
     Route::get('/customers', function (){
         return view('customers');
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['permission:dashboard']], function () {
     });
 
     Route::resources([
-        'drivers' => DriversController::class,
+        // 'drivers' => DriversController::class,
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
         'users' => UserController::class
