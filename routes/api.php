@@ -6,6 +6,7 @@ use App\Http\Controllers\DriversController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\ClientContoller;
 use App\Http\Controllers\API\DriverContoller;
+use App\Http\Controllers\Api\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +29,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // });
 
-// Route::apiResource('clients', ClientContoller::class);
-// Route::apiResource('drivers', DriverContoller::class);
+Route::apiResource('clients', ClientContoller::class);
+Route::apiResource('drivers', DriverContoller::class);
+Route::apiResource('reviews', ReviewController::class);
+
 
 
 Route::group([
+    
     'middleware' => 'api',
     'prefix' => 'auth'
 

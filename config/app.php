@@ -161,7 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        //Review-Rateable
+        Codebyray\ReviewRateable\ReviewRateableServiceProvider::class,
         //JWT-TOKEN
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 

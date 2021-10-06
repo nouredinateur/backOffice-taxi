@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Codebyray\ReviewRateable\Contracts\ReviewRateable;
+use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 
-class Client extends Model
+class Client extends Model implements ReviewRateable
 {
-    use HasFactory;
-
+    use HasFactory, ReviewRateableTrait;
 
     protected $fillable = [
         'name',
@@ -19,14 +20,4 @@ class Client extends Model
         'password'
     ];
 
-    
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 }
