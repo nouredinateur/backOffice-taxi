@@ -45,6 +45,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $casts = [
+        
         'email_verified_at' => 'datetime',
     ];
 
@@ -64,5 +65,15 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
-    } 
+    }
+
+    public function client() 
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function driver()
+    {
+        return $this->hasOne(Driver::class);
+    }
 }

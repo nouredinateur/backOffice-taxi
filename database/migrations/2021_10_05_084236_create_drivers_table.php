@@ -15,12 +15,12 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('avatar');
-            $table->string('email');
-            $table->string('cin');
-            $table->string('phoneNumber');
-            $table->string('password');
+            $table->string('num_permis');
+            $table->string('num_permis_de_confiance');
+            //date doctation permi
+            //date deoctaion permi confience
+            $table->string('car_model');
+            $table->integer('user_id')->onDelete('cascade');
             $table->timestamps();
         });
     }
