@@ -16,11 +16,6 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct() {
-        
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-
-    }
 
     /**
      * Get a JWT via given credentials.
@@ -71,6 +66,31 @@ class AuthController extends Controller
         ], 201);
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+       
+         $request->validate([
+
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+
+        ]);
+        
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = $request->get('password');
+        $user->save();
+        return response()->json($user);
+    }
 
     /**
      * Log the user out (Invalidate the token).
@@ -79,7 +99,6 @@ class AuthController extends Controller
      */
     public function logout() {
         auth()->logout();
-
         return response()->json(['message' => 'User successfully signed out']);
     }
 
@@ -110,11 +129,12 @@ class AuthController extends Controller
      */
     protected function createNewToken($token){
         return response()->json([
+
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
+
         ]);
     }
-
 }

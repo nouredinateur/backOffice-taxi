@@ -8,12 +8,6 @@ use App\Http\Controllers\Controller;
 
 class DriverContoller extends Controller
 {
-    
-    public function __construct() {
-        
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
-
-    }
 
     /**
      * Display a listing of the resource.
@@ -23,6 +17,7 @@ class DriverContoller extends Controller
     public function index()
     {
         $drivers = Driver::all();
+        $drivers->makeHidden(['password','created_at','updated_at']);
         return response()->json($drivers);
     }
 
@@ -70,7 +65,7 @@ class DriverContoller extends Controller
         return response()->json($driver);
     }
 
-  
+
     /**
      * Update the specified resource in storage.
      *
@@ -81,7 +76,6 @@ class DriverContoller extends Controller
     public function update(Request $request, $id)
     {
         $driver = Driver::findOrFail($id);
-
         $request->validate([
 
             'name' => 'required',

@@ -19,5 +19,8 @@ class Client extends Model implements ReviewRateable
         'phoneNumber',
         'password'
     ];
-
+    
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

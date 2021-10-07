@@ -29,14 +29,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // });
 
-Route::apiResource('clients', ClientContoller::class);
-Route::apiResource('drivers', DriverContoller::class);
-Route::apiResource('reviews', ReviewController::class);
+Route::apiResource('clients', ClientContoller::class)->middleware('auth:api');
+Route::apiResource('drivers', DriverContoller::class)->middleware('auth:api');
+Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
 
 
 
 Route::group([
-    
+
     'middleware' => 'api',
     'prefix' => 'auth'
 
@@ -45,5 +45,6 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::post('/update', [AuthController::class, 'update']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });

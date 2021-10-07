@@ -19,4 +19,14 @@ class Driver extends Model implements ReviewRateable
         'phoneNumber',
         'password'
     ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    
+
+    public function user() 
+    {
+        return $this->hasOne(User::class);
+    }
 }

@@ -9,13 +9,6 @@ use App\Http\Controllers\Controller;
 class ClientContoller extends Controller
 {
 
-
-    public function __construct() {
-        
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
-
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +17,11 @@ class ClientContoller extends Controller
     public function index()
     {
         $clients = Client::all();
+        $clients->makeHidden(['password','created_at','updated_at']);
         return response()->json($clients);
     }
 
- 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -80,7 +74,6 @@ class ClientContoller extends Controller
     public function update(Request $request, $id)
     {
         $client = Client::findOrFail($id);
-
         $request->validate([
             'name' => 'required',
             'avatar' => 'required',
