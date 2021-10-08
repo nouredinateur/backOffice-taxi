@@ -14,8 +14,8 @@ class DriverSeeder extends Seeder
      */
     public function run()
     {
-        Driver::factory()
-        ->times(10)
-        ->create();
+        // Driver::factory()
+        // ->times(10)
+        // ->create();
     }
 }

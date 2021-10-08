@@ -14,6 +14,6 @@ class DriverTableSeeder extends Seeder
      */
     public function run()
     {
-        Drivers::factory()->count(20)->create();
+        // Drivers::factory()->count(20)->create();
     }
 }

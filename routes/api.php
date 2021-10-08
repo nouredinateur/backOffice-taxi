@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // });
 
-Route::apiResource('clients', ClientContoller::class)->middleware('auth:api');
+Route::apiResource('clients', ClientContoller::class);
 Route::apiResource('drivers', DriverContoller::class)->middleware('auth:api');
 Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
 

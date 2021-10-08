@@ -17,8 +17,8 @@ class CreateDriversTable extends Migration
             $table->id();
             $table->string('num_permis');
             $table->string('num_permis_de_confiance');
-            //date doctation permi
-            //date deoctaion permi confience
+            $table->date('date_de_permis');
+            $table->date('date_de_permis_confiance');
             $table->string('car_model');
             $table->integer('user_id')->onDelete('cascade');
             $table->timestamps();

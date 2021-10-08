@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,11 +17,15 @@ class ClientContoller extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-        $clients->makeHidden(['password','created_at','updated_at']);
-        return response()->json($clients);
-    }
+        $users = Client::all();
+        foreach ($users as $user) {
+            $test = $user->client;
+        }
+        dd($users);
 
+        // $clients->makeHidden(['password','created_at','updated_at']);
+        // return response()->json($clients);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +44,7 @@ class ClientContoller extends Controller
             'password' => 'required'
         ]);
 
-        $newClient = new Client([
+        $newClient = new User([
             'name' => $request->get('name'),
             'avatar' => $request->get('avatar'),
             'email' => $request->get('email'),
@@ -47,8 +52,14 @@ class ClientContoller extends Controller
             'phoneNumber' => $request->get('phoneNumber'),
             'password' => $request->get('password')
         ]);
+        $client = new Client();
+        $newClient->client()->save($client);
 
-        $newClient->save();
+        // $comment = new Comment(['message' => 'A new comment.']);
+
+        // post = User::find(1);
+
+        // $post->comments()->save($comment);
         return response()->json($newClient);
     }
 
