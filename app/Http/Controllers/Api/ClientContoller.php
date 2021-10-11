@@ -17,14 +17,14 @@ class ClientContoller extends Controller
      */
     public function index()
     {
-        $users = Client::all();
-        foreach ($users as $user) {
-            $test = $user->client;
-        }
-        dd($users);
+        $users = User::with('client')->get();
+        // foreach ($users as $user) {
+        //     $test = $user->client;
+        // }
+        // dd($users);
 
-        // $clients->makeHidden(['password','created_at','updated_at']);
-        // return response()->json($clients);
+        $users->makeHidden(['password','created_at','updated_at']);
+     return response()->json($users);
     }
 
     /**
@@ -43,8 +43,7 @@ class ClientContoller extends Controller
             'phoneNumber' => 'required',
             'password' => 'required'
         ]);
-
-        $newClient = new User([
+        $user = new User([
             'name' => $request->get('name'),
             'avatar' => $request->get('avatar'),
             'email' => $request->get('email'),
@@ -52,15 +51,11 @@ class ClientContoller extends Controller
             'phoneNumber' => $request->get('phoneNumber'),
             'password' => $request->get('password')
         ]);
+
         $client = new Client();
-        $newClient->client()->save($client);
-
-        // $comment = new Comment(['message' => 'A new comment.']);
-
-        // post = User::find(1);
-
-        // $post->comments()->save($comment);
-        return response()->json($newClient);
+        $user->save();
+        $user->client()->save($client);
+        return response()->json($user);
     }
 
     /**
@@ -71,7 +66,7 @@ class ClientContoller extends Controller
      */
     public function show($id)
     {
-        $client = Client::findOrFail($id);
+        $client = User::with('client')->where('id', $id)->get();
         return response()->json($client);
     }
 
@@ -84,7 +79,7 @@ class ClientContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $client = Client::findOrFail($id);
+        $user = User::findOrFail($id);
         $request->validate([
             'name' => 'required',
             'avatar' => 'required',
@@ -94,15 +89,14 @@ class ClientContoller extends Controller
             'password' => 'required'
         ]);
 
-        $client->name = $request->get('name');
-        $client->avatar = $request->get('avatar');
-        $client->email = $request->get('email');
-        $client->cin = $request->get('cin');
-        $client->phoneNumber = $request->get('phoneNumber');
-        $client->password = $request->get('password');
-        $client->save();
-
-        return response()->json($client);
+        $user->name = $request->get('name');
+        $user->avatar = $request->get('avatar');
+        $user->email = $request->get('email');
+        $user->cin = $request->get('cin');
+        $user->phoneNumber = $request->get('phoneNumber');
+        $user->password = $request->get('password');
+        $user->save();
+        return response()->json($user);
     }
 
     /**
