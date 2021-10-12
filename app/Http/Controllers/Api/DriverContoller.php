@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,8 +17,8 @@ class DriverContoller extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
-        $drivers->makeHidden(['password','created_at','updated_at']);
+        $drivers = Driver::with('user')->get();
+        $drivers->makeHidden(['created_at','updated_at']);
         return response()->json($drivers);
     }
 
@@ -36,10 +37,15 @@ class DriverContoller extends Controller
             'email' => 'required',
             'cin' => 'required',
             'phoneNumber' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'num_permis' => 'required',
+            'num_permis_de_confiance' => 'required',
+            'date_de_permis' => 'required',
+            'date_de_permis_confiance' => 'required',
+            'car_model' => 'required'
         ]);
 
-        $newDriver = new Driver([
+        $user = new User([
             'name' => $request->get('name'), 
             'avatar' => $request->get('avatar'),
             'email' => $request->get('email'),
@@ -48,9 +54,18 @@ class DriverContoller extends Controller
             'password' => $request->get('password'),
         ]);
 
-        $newDriver->save();
+        $user->save();
 
-        return response()->json($newDriver);
+        $driver = new Driver([
+            'num_permis' => $request->get('num_permis'),
+            'num_permis_de_confiance' => $request->get('num_permis_de_confiance'),
+            'date_de_permis' => $request->get('date_de_permis'),
+            'date_de_permis_confiance' => $request->get('date_de_permis_confiance'),
+            'car_model' => $request->get('car_model'),
+        ]);
+
+        $user->driver()->save($driver);
+        return response()->json($user);
     }
 
     /**

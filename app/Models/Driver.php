@@ -12,16 +12,20 @@ class Driver extends Model implements ReviewRateable
     use HasFactory, ReviewRateableTrait;
 
     protected $fillable = [
-        'name',
-        'avatar',
-        'email',
-        'cin',
-        'phoneNumber',
-        'password'
+        'num_permis',
+        'num_permis_de_confiance',
+        'date_de_permis',
+        'date_de_permis_confiance',
+        'car_model'
+        
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
+        'remember_token',
+        'user_id',
+        'created_at',
+        'updated_at'
     ];
     
 

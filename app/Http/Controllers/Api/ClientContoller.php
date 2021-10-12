@@ -17,14 +17,9 @@ class ClientContoller extends Controller
      */
     public function index()
     {
-        $users = User::with('client')->get();
-        // foreach ($users as $user) {
-        //     $test = $user->client;
-        // }
-        // dd($users);
-
-        $users->makeHidden(['password','created_at','updated_at']);
-     return response()->json($users);
+        $drivers = Client::with('user')->get();
+        $drivers->makeHidden(['created_at','updated_at']);
+        return response()->json($drivers);
     }
 
     /**
@@ -43,6 +38,7 @@ class ClientContoller extends Controller
             'phoneNumber' => 'required',
             'password' => 'required'
         ]);
+
         $user = new User([
             'name' => $request->get('name'),
             'avatar' => $request->get('avatar'),
@@ -52,8 +48,8 @@ class ClientContoller extends Controller
             'password' => $request->get('password')
         ]);
 
-        $client = new Client();
         $user->save();
+        $client = new Client();
         $user->client()->save($client);
         return response()->json($user);
     }
@@ -67,6 +63,7 @@ class ClientContoller extends Controller
     public function show($id)
     {
         $client = User::with('client')->where('id', $id)->get();
+        $client->makeHidden(['email_verified_at','created_at','updated_at']);
         return response()->json($client);
     }
 
@@ -79,7 +76,7 @@ class ClientContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('client')->where('id', $id)->first();
         $request->validate([
             'name' => 'required',
             'avatar' => 'required',
@@ -107,8 +104,9 @@ class ClientContoller extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::findOrFail($id);
+        $client = Client::where('id', $id)->first();
         $client->delete();
-        return response()->json($client::all());
+        $users = Client::with('user')->get();
+        return response()->json($users);
     }
 }

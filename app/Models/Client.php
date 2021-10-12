@@ -21,7 +21,11 @@ class Client extends Model implements ReviewRateable
     ];
     
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
+        'remember_token',
+        'user_id',
+        'created_at',
+        'updated_at'
     ];
 
     public function user()
