@@ -62,7 +62,7 @@ class ClientContoller extends Controller
      */
     public function show($id)
     {
-        $client = User::with('client')->where('id', $id)->get();
+        $client = Client::with('user')->where('id', $id)->get();
         $client->makeHidden(['email_verified_at','created_at','updated_at']);
         return response()->json($client);
     }

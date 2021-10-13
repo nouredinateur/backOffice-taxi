@@ -32,4 +32,14 @@ class Client extends Model implements ReviewRateable
     {
         return $this->belongsTo(User::class);
     }
+
+
+    public static function boot() 
+    {
+        parent::boot();
+        static::deleted(function($client) {
+           $client->user()->delete();
+        });
+    }
+
 }

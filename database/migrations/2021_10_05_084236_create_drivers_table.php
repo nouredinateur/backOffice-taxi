@@ -20,8 +20,7 @@ class CreateDriversTable extends Migration
             $table->date('date_de_permis');
             $table->date('date_de_permis_confiance');
             $table->string('car_model');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -36,4 +35,3 @@ class CreateDriversTable extends Migration
         Schema::dropIfExists('drivers');
     }
 }
-
