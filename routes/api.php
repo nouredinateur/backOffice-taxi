@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\ClientContoller;
 use App\Http\Controllers\API\DriverContoller;
 use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\RouteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('clients', ClientContoller::class);
 Route::apiResource('drivers', DriverContoller::class);
 Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
+Route::apiResource('routes', RouteController::class);
 
 
 

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Route extends Model
 {
     use HasFactory;
+
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+    
 }

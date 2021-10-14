@@ -20,6 +20,7 @@ class Client extends Model implements ReviewRateable
         'password'
     ];
     
+    
     protected $hidden = [
         'password', 
         'remember_token',
@@ -33,6 +34,10 @@ class Client extends Model implements ReviewRateable
         return $this->belongsTo(User::class);
     }
 
+    public function route()
+    {
+        return $this->hasMany(Route::class);
+    }
 
     public static function boot() 
     {
@@ -41,5 +46,4 @@ class Client extends Model implements ReviewRateable
            $client->user()->delete();
         });
     }
-
 }

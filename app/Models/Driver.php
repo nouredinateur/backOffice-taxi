@@ -28,13 +28,17 @@ class Driver extends Model implements ReviewRateable
         'created_at',
         'updated_at'
     ];
-    
+
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    public function route()
+    {
+        return $this->hasMany(Route::class);
+    }
 
     public static function boot() 
     {
