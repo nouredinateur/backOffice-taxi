@@ -104,6 +104,7 @@ class DriverContoller extends Controller
             'date_de_permis_confiance' => 'required',
             'car_model' => 'required'
         ]);
+
         $driver['user']->name = $request->get('name');
         $driver['user']->avatar = $request->get('avatar');
         $driver['user']->email = $request->get('email');
@@ -115,6 +116,7 @@ class DriverContoller extends Controller
         $driver->date_de_permis = $request->get('date_de_permis');
         $driver->date_de_permis_confiance = $request->get('date_de_permis_confiance');
         $driver->car_model = $request->get('car_model');
+        
         $driver->save();
         return response()->json($driver);
     }

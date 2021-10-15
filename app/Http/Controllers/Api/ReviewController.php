@@ -36,29 +36,42 @@ class ReviewController extends Controller
         dd($rating);
     }
 
- 
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $driver = Driver::findOrfail();
-        $client = Client::findOrfail();
-        
-        $rating = $driver->rating([ //driver being rated
-            'title' => $request->title,
-            'body' => $request->body,
-            'customer_service_rating' => $request->customer_service_rating, //max 5
-            'quality_rating' => $request->quality_rating, //max 5
-            'friendly_rating' => $request->friendly_rating, //max 5
-            'pricing_rating' => $request->pricing_rating, //max 5
-            'rating' => $request->rating, //max 5
-            'recommend' => $request->recommend, //Yes or NO
-            'approved' => true, // This is optional and defaults to false
-        ], $client); //client doing the rating
+
+        $ReviewerId = $request->get('id_of_reviewer');
+        $ReviewedId = $request->get('id_of_reviewed');
+        $driver = Driver::find($ReviewedId);
+        // $client = Client::findOrFail();
+
+        // dd($driver);
+        return response()->json($driver);
+
+        // $client = Client::findOrfail();
+        // if($user->with('client')){
+        //     $reviewer = Client::whereHas('user')->where('id', $id)->first();
+        // }elseif($user->with('driver')){
+        //     $reviewer = Driver::whereHas('user')->where('id', $id)->first();
+        // }
+
+        // $rating = $driver->rating([ //driver being rated
+        //     'title' => $request->title,
+        //     'body' => $request->body,
+        //     'customer_service_rating' => $request->customer_service_rating, //max 5
+        //     'quality_rating' => $request->quality_rating, //max 5
+        //     'friendly_rating' => $request->friendly_rating, //max 5
+        //     'pricing_rating' => $request->pricing_rating, //max 5
+        //     'rating' => $request->rating, //max 5
+        //     'recommend' => $request->recommend, //Yes or NO
+        //     'approved' => true, // This is optional and defaults to false
+        // ], $client); //client doing the rating
     }
 
     /**

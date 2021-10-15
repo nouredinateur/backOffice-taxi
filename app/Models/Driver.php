@@ -18,7 +18,6 @@ class Driver extends Model implements ReviewRateable
         'date_de_permis',
         'date_de_permis_confiance',
         'car_model'
-        
     ];
 
     protected $hidden = [

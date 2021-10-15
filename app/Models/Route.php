@@ -9,6 +9,14 @@ class Route extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'client_id',
+        'driver_id',
+        'starting_point',
+        'ending_point',
+        'distance',
+        'price',
+    ];
 
     public function driver()
     {
@@ -19,5 +27,4 @@ class Route extends Model
     {
         return $this->belongsTo(Client::class);
     }
-    
 }
