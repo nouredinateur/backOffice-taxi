@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Review;
+use Codebyray\ReviewRateable\Contracts\ReviewRateable;
 
 class ReviewController extends Controller
 {
@@ -18,60 +20,36 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $driver = Driver::first();
-        $client = Client::first();
-        
-        $rating = $driver->rating([ //driver being rated
-            'title' => 'This is a test title',
-            'body' => 'And we will add some shit here',
-            'customer_service_rating' => 5,
-            'quality_rating' => 5,
-            'friendly_rating' => 5,
-            'pricing_rating' => 5,
-            'rating' => 5,
-            'recommend' => 'Yes',
-            'approved' => true, // This is optional and defaults to false
-        ], $client); //client doing the rating
-        
-        dd($rating);
+        $reviews = Review::all(); 
+        return response()->json($reviews);
     }
-
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @param  int  $id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
 
         $ReviewerId = $request->get('id_of_reviewer');
-        $ReviewedId = $request->get('id_of_reviewed');
-        $driver = Driver::find($ReviewedId);
-        // $client = Client::findOrFail();
+        $ReviewedId = $request->get('id_of_the_reviewed');
 
-        // dd($driver);
-        return response()->json($driver);
-
-        // $client = Client::findOrfail();
-        // if($user->with('client')){
-        //     $reviewer = Client::whereHas('user')->where('id', $id)->first();
-        // }elseif($user->with('driver')){
-        //     $reviewer = Driver::whereHas('user')->where('id', $id)->first();
-        // }
-
-        // $rating = $driver->rating([ //driver being rated
-        //     'title' => $request->title,
-        //     'body' => $request->body,
-        //     'customer_service_rating' => $request->customer_service_rating, //max 5
-        //     'quality_rating' => $request->quality_rating, //max 5
-        //     'friendly_rating' => $request->friendly_rating, //max 5
-        //     'pricing_rating' => $request->pricing_rating, //max 5
-        //     'rating' => $request->rating, //max 5
-        //     'recommend' => $request->recommend, //Yes or NO
-        //     'approved' => true, // This is optional and defaults to false
-        // ], $client); //client doing the rating
+        $reviewed = User::findOrFail($ReviewedId);
+        $reviewer = User::findOrFail($ReviewerId);
+        $rating = $reviewed->rating([ //driver being rated
+            'title' => $request->title,
+            'body' => $request->body,
+            'customer_service_rating' => $request->customer_service_rating, //max 5
+            'quality_rating' => $request->quality_rating, //max 5
+            'friendly_rating' => $request->friendly_rating, //max 5
+            'pricing_rating' => $request->pricing_rating, //max 5
+            'rating' => $request->rating, //max 5
+            'recommend' => $request->recommend, //Yes or NO
+            'approved' => true, // This is optional and defaults to false
+        ], $reviewer); //client doing the rating
+        return response()->json($rating);
     }
 
     /**
@@ -82,7 +60,8 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        //
+        $review = Review::findOrFail($id);
+        return response()->json($review);
     }
 
     /**
@@ -94,7 +73,19 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-       //
+        $user = User::findOrFail($id);
+        $rating = $user->updateRating(1, [
+            'title' => $request->title,
+            'body' => $request->body,
+            'customer_service_rating' => $request->customer_service_rating,
+            'quality_rating' => $request->quality_rating,
+            'friendly_rating' => $request->friendly_rating,
+            'pricing_rating' => $request->pricing_rating,
+            'rating' => $request->rating,
+            'recommend' => $request->recommend,
+            'approved' => true, // This is optional and defaults to false
+        ]);
+        return response()->json($rating);
     }
 
     /**
@@ -105,6 +96,8 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-      //
+      $review = Review::findOrFail($id);
+      $review->delete();
+      return response()->json($review);
     }
 }
