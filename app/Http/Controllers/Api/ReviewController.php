@@ -20,7 +20,11 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all(); 
+        //get the current authenticated user reviews
+        //  $reviews = Review::all(); 
+        $user = auth()->user();
+        $reviews = $user->getAllRatings($user->id, 'desc');
+        // dd($user);
         return response()->json($reviews);
     }
 
@@ -30,15 +34,15 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
 
-        $ReviewerId = $request->get('id_of_reviewer');
+        $ReviewerId = auth()->user()->id;
         $ReviewedId = $request->get('id_of_the_reviewed');
 
         $reviewed = User::findOrFail($ReviewedId);
         $reviewer = User::findOrFail($ReviewerId);
-        $rating = $reviewed->rating([ //driver being rated
+        $rating = $reviewed->rating([ //user being rated
             'title' => $request->title,
             'body' => $request->body,
             'customer_service_rating' => $request->customer_service_rating, //max 5
@@ -48,7 +52,7 @@ class ReviewController extends Controller
             'rating' => $request->rating, //max 5
             'recommend' => $request->recommend, //Yes or NO
             'approved' => true, // This is optional and defaults to false
-        ], $reviewer); //client doing the rating
+        ], $reviewer); //user doing the rating
         return response()->json($rating);
     }
 

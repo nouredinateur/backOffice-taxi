@@ -10,16 +10,6 @@ use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 class Client extends Model implements ReviewRateable
 {
     use HasFactory, ReviewRateableTrait;
-
-    protected $fillable = [
-        'name',
-        'avatar',
-        'email',
-        'cin',
-        'phoneNumber',
-        'password'
-    ];
-    
     
     protected $hidden = [
         'password', 

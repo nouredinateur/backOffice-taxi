@@ -51,7 +51,7 @@ class DriverContoller extends Controller
             'email' => $request->get('email'),
             'cin' => $request->get('cin'),
             'phoneNumber' => $request->get('phoneNumber'),
-            'password' => $request->get('password'),
+            'password' => bcrypt( $request->get('password'))
         ]);
 
         $user->save();
