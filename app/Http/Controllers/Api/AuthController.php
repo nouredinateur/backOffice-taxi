@@ -82,13 +82,19 @@ class AuthController extends Controller
        
          $request->validate([
 
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'name' => 'required|string|between:2,100',
+            'avatar' => 'required',
+            'cin' => 'required',
+            'phoneNumber' => 'required',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|confirmed|min:6',
 
         ]);
         
         $user->name = $request->get('name');
+        $user->avatar = $request->get('avatar');
+        $user->cin = $request->get('cin');
+        $user->phoneNumber = $request->get('phoneNumber');
         $user->email = $request->get('email');
         $user->password = $request->get('password');
         $user->save();

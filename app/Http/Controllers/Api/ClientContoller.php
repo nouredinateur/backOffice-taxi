@@ -64,8 +64,12 @@ class ClientContoller extends Controller
     public function show($id)
     {
         $client = Client::findOrFail($id);
-        $user = $client->user;
-        return response()->json($client);
+        // $user = $client->user;
+        $user = $client['user'];
+        $rating = $user->averageRating();
+
+        // dd($user->averageRating());
+        return response()->json($rating);
     }
 
     /**
@@ -84,7 +88,6 @@ class ClientContoller extends Controller
             'email' => 'required',
             'cin' => 'required',
             'phoneNumber' => 'required',
-            'password' => 'required'
         ]);
 
         $user->name = $request->get('name');
@@ -92,7 +95,6 @@ class ClientContoller extends Controller
         $user->email = $request->get('email');
         $user->cin = $request->get('cin');
         $user->phoneNumber = $request->get('phoneNumber');
-        $user->password = $request->get('password');
         $user->save();
         return response()->json($user);
     }

@@ -21,10 +21,14 @@ class ReviewController extends Controller
     public function index()
     {
         //get the current authenticated user reviews
-        //  $reviews = Review::all(); 
+       
         $user = auth()->user();
         $reviews = $user->getAllRatings($user->id, 'desc');
-        // dd($user);
+        return response()->json($reviews);
+    }
+
+    public function allreviews(){
+        $reviews = Review::all(); 
         return response()->json($reviews);
     }
 
@@ -36,12 +40,10 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-
-        $ReviewerId = auth()->user()->id;
+        $reviewer = auth()->user();
         $ReviewedId = $request->get('id_of_the_reviewed');
-
         $reviewed = User::findOrFail($ReviewedId);
-        $reviewer = User::findOrFail($ReviewerId);
+        
         $rating = $reviewed->rating([ //user being rated
             'title' => $request->title,
             'body' => $request->body,

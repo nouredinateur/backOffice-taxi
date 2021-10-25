@@ -23,6 +23,9 @@ class RouteController extends Controller
 
     public function store(Request $request){
 
+        $user = auth()->user();
+        $client = $user->client()->get();
+
         $client = Client::findOrFail(1);
         $driver = Driver::findOrFail(8);
         $route = new Route();
@@ -46,7 +49,7 @@ class RouteController extends Controller
         $route->price = $request->get('price');
         $route->save();
         return response()->json($route);
-        
+
     }
 
     public function show($id){

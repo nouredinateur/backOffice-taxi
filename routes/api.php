@@ -8,6 +8,7 @@ use App\Http\Controllers\API\ClientContoller;
 use App\Http\Controllers\API\DriverContoller;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\RouteController;
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,17 +33,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('clients', ClientContoller::class);
 Route::apiResource('drivers', DriverContoller::class);
-Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
+// Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
 Route::apiResource('routes', RouteController::class);
 
 // Route::post('reviews/', ReviewController::class, 'store');
 
-Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -50,3 +46,6 @@ Route::group([
     Route::post('/update', [AuthController::class, 'update']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
+
+
+Route::get('/reviews/all', [ReviewController::class, 'allreviews']);

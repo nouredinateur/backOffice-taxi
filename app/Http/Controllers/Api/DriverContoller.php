@@ -77,6 +77,8 @@ class DriverContoller extends Controller
     public function show($id)
     {
         $driver = Driver::with('user')->where('id', $id)->first();
+        // dd(User::where($driver));
+       
         return response()->json($driver);
     }
 
@@ -97,7 +99,6 @@ class DriverContoller extends Controller
             'email' => 'required',
             'cin' => 'required',
             'phoneNumber' => 'required',
-            'password' => 'required',
             'num_permis' => 'required',
             'num_permis_de_confiance' => 'required',
             'date_de_permis' => 'required',
@@ -110,7 +111,6 @@ class DriverContoller extends Controller
         $driver['user']->email = $request->get('email');
         $driver['user']->cin = $request->get('cin');
         $driver['user']->phoneNumber = $request->get('phoneNumber');
-        $driver['user']->password = $request->get('password');
         $driver->num_permis = $request->get('num_permis');
         $driver->num_permis_de_confiance = $request->get('num_permis_de_confiance');
         $driver->date_de_permis = $request->get('date_de_permis');
