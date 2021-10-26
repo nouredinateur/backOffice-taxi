@@ -25,9 +25,8 @@ class RouteController extends Controller
 
         $user = auth()->user();
         $client = $user->client()->get();
-
-        $client = Client::findOrFail(1);
-        $driver = Driver::findOrFail(8);
+        $idDriver = $request->id;
+        $driver = Driver::findOrFail($idDriver);
         $route = new Route();
         $route->client()->associate($client);
         $route->driver()->associate($driver);

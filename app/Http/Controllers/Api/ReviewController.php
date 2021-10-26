@@ -27,6 +27,7 @@ class ReviewController extends Controller
         return response()->json($reviews);
     }
 
+    
     public function allreviews(){
         $reviews = Review::all(); 
         return response()->json($reviews);
