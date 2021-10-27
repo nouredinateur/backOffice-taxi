@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Driver;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,8 +19,12 @@ class DriverContoller extends Controller
     public function index()
     {
         $drivers = Driver::with('user')->get();
-        $drivers->makeHidden(['created_at','updated_at']);
-        return response()->json($drivers);
+        foreach($drivers as $driver){
+            $rating = $driver['user']->averageRating();
+            $array =  Arr::add($driver['user'], 'rate', $rating);
+            $res[] = $driver;
+        };  
+        return response()->json($res);
     }
 
 
@@ -76,9 +81,10 @@ class DriverContoller extends Controller
      */
     public function show($id)
     {
-        $driver = Driver::with('user')->where('id', $id)->first();
-        // dd(User::where($driver));
-       
+        $driver = Driver::findOrFail($id);
+        $user = $driver['user'];
+        $rating = $user->averageRating();
+        $array =  Arr::add($user, 'rate', $rating);
         return response()->json($driver);
     }
 

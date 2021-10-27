@@ -33,8 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('clients', ClientContoller::class);
 Route::apiResource('drivers', DriverContoller::class);
-// Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
-Route::apiResource('routes', RouteController::class);
+Route::apiResource('reviews', ReviewController::class);
+Route::apiResource('routes', RouteController::class)->middleware('auth:api');
 
 // Route::post('reviews/', ReviewController::class, 'store');
 
@@ -48,4 +48,4 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 });
 
 
-Route::get('/reviews/all', [ReviewController::class, 'allreviews']);
+// Route::get('/reviews/all', [ReviewController::class, 'allreviews']);

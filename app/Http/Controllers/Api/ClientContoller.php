@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Client;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,9 +19,13 @@ class ClientContoller extends Controller
      */
     public function index()
     {
-        $drivers = Client::with('user')->get();
-        $drivers->makeHidden(['created_at','updated_at']);
-        return response()->json($drivers);
+        $clients = Client::with('user')->get();
+        foreach($clients as $client){
+            $rating = $client['user']->averageRating();
+            $array =  Arr::add($client['user'], 'rate', $rating);
+            $res[] = $client;
+        };  
+        return response()->json($res);
     }
 
     /**
@@ -64,12 +69,10 @@ class ClientContoller extends Controller
     public function show($id)
     {
         $client = Client::findOrFail($id);
-        // $user = $client->user;
         $user = $client['user'];
         $rating = $user->averageRating();
-
-        // dd($user->averageRating());
-        return response()->json($rating);
+        $array =  Arr::add($user, 'rate', $rating);
+        return response()->json($client);
     }
 
     /**

@@ -27,7 +27,7 @@ class ReviewController extends Controller
         return response()->json($reviews);
     }
 
-    
+
     public function allreviews(){
         $reviews = Review::all(); 
         return response()->json($reviews);
@@ -41,7 +41,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $reviewer = auth()->user();
+        $reviewer = auth()->user() ? auth()->user() : User::findOrFail($request->get('id_of_reviewer'));
         $ReviewedId = $request->get('id_of_the_reviewed');
         $reviewed = User::findOrFail($ReviewedId);
         

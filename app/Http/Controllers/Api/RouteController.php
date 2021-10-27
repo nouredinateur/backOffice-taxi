@@ -39,18 +39,6 @@ class RouteController extends Controller
         return response()->json($route);
     }
 
-    public function update(Request $request, $id){
-
-        $route = Route::findOrFail($id);
-        $route->starting_point = $request->get('starting_point');
-        $route->ending_point = $request->get('ending_point');
-        $route->distance = $request->get('distace');
-        $route->price = $request->get('price');
-        $route->save();
-        return response()->json($route);
-
-    }
-
     public function show($id){
         $route = Route::findOrFail($id);
         return response()->json($route);
