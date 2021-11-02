@@ -19,11 +19,13 @@ class DriverContoller extends Controller
     public function index()
     {
         $drivers = Driver::with('user')->get();
+
         foreach($drivers as $driver){
             $rating = $driver['user']->averageRating();
             $array =  Arr::add($driver['user'], 'rate', $rating);
             $res[] = $driver;
         };  
+
         return response()->json($res);
     }
 
@@ -36,7 +38,7 @@ class DriverContoller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = validator($request->all(), [
             'name' => 'required',
             'avatar' => 'required',
             'email' => 'required',
@@ -48,29 +50,34 @@ class DriverContoller extends Controller
             'date_de_permis' => 'required',
             'date_de_permis_confiance' => 'required',
             'car_model' => 'required'
-        ]);
+            ]);
 
-        $user = new User([
-            'name' => $request->get('name'), 
-            'avatar' => $request->get('avatar'),
-            'email' => $request->get('email'),
-            'cin' => $request->get('cin'),
-            'phoneNumber' => $request->get('phoneNumber'),
-            'password' => bcrypt( $request->get('password'))
-        ]);
+        if($validator->fails()){
 
-        $user->save();
+            return $validator->errors();
 
-        $driver = new Driver([
-            'num_permis' => $request->get('num_permis'),
-            'num_permis_de_confiance' => $request->get('num_permis_de_confiance'),
-            'date_de_permis' => $request->get('date_de_permis'),
-            'date_de_permis_confiance' => $request->get('date_de_permis_confiance'),
-            'car_model' => $request->get('car_model'),
-        ]);
+        }else{
 
-        $user->driver()->save($driver);
-        return response()->json(['user'=>$user,'driver'=>$driver]);
+            $user = new User([
+                'name' => $request->get('name'), 
+                'avatar' => $request->get('avatar'),
+                'email' => $request->get('email'),
+                'cin' => $request->get('cin'),
+                'phoneNumber' => $request->get('phoneNumber'),
+                'password' => bcrypt( $request->get('password'))
+            ]);
+
+            $driver = new Driver([
+                'num_permis' => $request->get('num_permis'),
+                'num_permis_de_confiance' => $request->get('num_permis_de_confiance'),
+                'date_de_permis' => $request->get('date_de_permis'),
+                'date_de_permis_confiance' => $request->get('date_de_permis_confiance'),
+                'car_model' => $request->get('car_model'),
+            ]);
+            $user->save();
+            $user->driver()->save($driver);
+            return response()->json(['user'=>$user,'driver'=>$driver]);
+        }
     }
 
     /**
@@ -81,11 +88,13 @@ class DriverContoller extends Controller
      */
     public function show($id)
     {
+
         $driver = Driver::findOrFail($id);
         $user = $driver['user'];
         $rating = $user->averageRating();
         $array =  Arr::add($user, 'rate', $rating);
         return response()->json($driver);
+
     }
 
 
@@ -99,7 +108,9 @@ class DriverContoller extends Controller
     public function update(Request $request, $id)
     {
         $driver = Driver::with('user')->where('id', $id)->first();
-        $request->validate([
+
+        $validator = validator($request->all(), [
+
             'name' => 'required',
             'avatar' => 'required',
             'email' => 'required',
@@ -110,21 +121,26 @@ class DriverContoller extends Controller
             'date_de_permis' => 'required',
             'date_de_permis_confiance' => 'required',
             'car_model' => 'required'
-        ]);
 
-        $driver['user']->name = $request->get('name');
-        $driver['user']->avatar = $request->get('avatar');
-        $driver['user']->email = $request->get('email');
-        $driver['user']->cin = $request->get('cin');
-        $driver['user']->phoneNumber = $request->get('phoneNumber');
-        $driver->num_permis = $request->get('num_permis');
-        $driver->num_permis_de_confiance = $request->get('num_permis_de_confiance');
-        $driver->date_de_permis = $request->get('date_de_permis');
-        $driver->date_de_permis_confiance = $request->get('date_de_permis_confiance');
-        $driver->car_model = $request->get('car_model');
-        
-        $driver->save();
-        return response()->json($driver);
+            ]);
+
+        if($validator->fails()){    
+            return $validator->errors();
+        }else{
+
+            $driver['user']->name = $request->get('name');
+            $driver['user']->avatar = $request->get('avatar');
+            $driver['user']->email = $request->get('email');
+            $driver['user']->cin = $request->get('cin');
+            $driver['user']->phoneNumber = $request->get('phoneNumber');
+            $driver->num_permis = $request->get('num_permis');
+            $driver->num_permis_de_confiance = $request->get('num_permis_de_confiance');
+            $driver->date_de_permis = $request->get('date_de_permis');
+            $driver->date_de_permis_confiance = $request->get('date_de_permis_confiance');
+            $driver->car_model = $request->get('car_model');
+            $driver->save();
+            return response()->json($driver);
+        }
     }
 
     /**

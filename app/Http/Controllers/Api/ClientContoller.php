@@ -24,7 +24,7 @@ class ClientContoller extends Controller
             $rating = $client['user']->averageRating();
             $array =  Arr::add($client['user'], 'rate', $rating);
             $res[] = $client;
-        };  
+        };
         return response()->json($res);
     }
 
@@ -36,28 +36,35 @@ class ClientContoller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = validator($request->all(), [
+
             'name' => 'required',
             'avatar' => 'required',
             'email' => 'required',
             'cin' => 'required',
             'phoneNumber' => 'required',
             'password' => 'required'
-        ]);
 
-        $user = new User([
-            'name' => $request->get('name'),
-            'avatar' => $request->get('avatar'),
-            'email' => $request->get('email'),
-            'cin' => $request->get('cin'),
-            'phoneNumber' => $request->get('phoneNumber'),
-            'password' => bcrypt($request->get('password'))
-        ]);
+            ]);
 
-        $user->save();
-        $client = new Client();
-        $user->client()->save($client);
-        return response()->json($user);
+        if($validator->fails()){
+            return $validator->errors();
+        }else{
+
+            $user = new User([
+                'name' => $request->get('name'),
+                'avatar' => $request->get('avatar'),
+                'email' => $request->get('email'),
+                'cin' => $request->get('cin'),
+                'phoneNumber' => $request->get('phoneNumber'),
+                'password' => bcrypt($request->get('password'))
+            ]);
+    
+            $user->save();
+            $client = new Client();
+            $user->client()->save($client);
+            return response()->json($user);
+        }
     }
 
     /**
@@ -85,6 +92,7 @@ class ClientContoller extends Controller
     public function update(Request $request, $id)
     {
         $user = User::with('client')->where('id', $id)->first();
+        
         $request->validate([
             'name' => 'required',
             'avatar' => 'required',

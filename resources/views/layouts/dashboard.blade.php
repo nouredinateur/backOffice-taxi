@@ -256,7 +256,6 @@
 					<div class="d-flex flex-column">
 						<a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
 						<div class="text-muted mt-1"> 
-
 							{{ $roles = auth()->user()->getRoleNames()->first() }}
 						</div>
 						<div class="navi mt-2">
