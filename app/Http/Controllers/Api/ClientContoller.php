@@ -50,7 +50,6 @@ class ClientContoller extends Controller
         if($validator->fails()){
             return $validator->errors();
         }else{
-
             $user = new User([
                 'name' => $request->get('name'),
                 'avatar' => $request->get('avatar'),
@@ -59,7 +58,7 @@ class ClientContoller extends Controller
                 'phoneNumber' => $request->get('phoneNumber'),
                 'password' => bcrypt($request->get('password'))
             ]);
-    
+
             $user->save();
             $client = new Client();
             $user->client()->save($client);
@@ -92,22 +91,24 @@ class ClientContoller extends Controller
     public function update(Request $request, $id)
     {
         $user = User::with('client')->where('id', $id)->first();
-        
-        $request->validate([
+        $validator = validator($request->all(), [
             'name' => 'required',
             'avatar' => 'required',
             'email' => 'required',
             'cin' => 'required',
             'phoneNumber' => 'required',
         ]);
-
-        $user->name = $request->get('name');
-        $user->avatar = $request->get('avatar');
-        $user->email = $request->get('email');
-        $user->cin = $request->get('cin');
-        $user->phoneNumber = $request->get('phoneNumber');
-        $user->save();
-        return response()->json($user);
+        if($validator->fails()){
+            return $validator->errors();
+        }else{
+            $user->name = $request->get('name');
+            $user->avatar = $request->get('avatar');
+            $user->email = $request->get('email');
+            $user->cin = $request->get('cin');
+            $user->phoneNumber = $request->get('phoneNumber');
+            $user->save();
+            return response()->json($user);
+        }
     }
 
     /**

@@ -30,20 +30,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('clients', ClientContoller::class);
 Route::apiResource('drivers', DriverContoller::class);
-Route::apiResource('reviews', ReviewController::class)->middleware('auth:api');
+Route::apiResource('reviews', ReviewController::class)->middleware('auth:api,web');
 Route::apiResource('routes', RouteController::class);
 Route::apiResource('params', ParamController::class);
 
 
 Route::group(['prefix' => 'auth'], function ($router) {
-    Route::middleware(['api'])->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
-        Route::post('/refresh', [AuthController::class, 'refresh']);
-        Route::post('/update', [AuthController::class, 'update']);
-        Route::get('/user-profile', [AuthController::class, 'userProfile']);
-    });
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/update', [AuthController::class, 'update']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/register', [AuthController::class, 'register']);
 });
-
-

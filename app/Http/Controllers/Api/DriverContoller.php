@@ -19,16 +19,13 @@ class DriverContoller extends Controller
     public function index()
     {
         $drivers = Driver::with('user')->get();
-
         foreach($drivers as $driver){
             $rating = $driver['user']->averageRating();
             $array =  Arr::add($driver['user'], 'rate', $rating);
             $res[] = $driver;
         };  
-
         return response()->json($res);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -74,6 +71,7 @@ class DriverContoller extends Controller
                 'date_de_permis_confiance' => $request->get('date_de_permis_confiance'),
                 'car_model' => $request->get('car_model'),
             ]);
+
             $user->save();
             $user->driver()->save($driver);
             return response()->json(['user'=>$user,'driver'=>$driver]);
