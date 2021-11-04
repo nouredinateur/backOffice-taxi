@@ -78,14 +78,14 @@
            
                 <!--end::Dropdown-->
                 <!--begin::Button-->
-                <a href="{{ route('drivers.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{}}" class="btn btn-primary font-weight-bolder">
                     <i class="fas fa-plus-circle"></i>New Record</a>
                 <!--end::Button-->
             </div>
         </div>
         <div class="card-body"> 
             <!--begin: Datatable-->
-            <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+            <table class="table table-bordered table-hover table-checkable" id="driversTable" style="margin-top: 13px !important">
                 <thead>
                     <tr>
                         <th>Order ID</th>

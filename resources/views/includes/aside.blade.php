@@ -213,7 +213,7 @@
 							</svg>
 							<!--end::Svg Icon-->
 						</span>
-						<span class="menu-text">Profiles</span>
+						<span class="menu-text">Reviews</span>
 						<i class="menu-arrow"></i>
 					</a>
 					<div class="menu-submenu">
@@ -225,20 +225,11 @@
 								</span>
 							</li>
 							<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-								<a href="/profiles" class="menu-link menu-toggle">
+								<a href="/reviews" class="menu-link menu-toggle">
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">Drivers</span>
-									<i class="menu-arrow"></i>
-								</a>
-							</li>
-							<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-								<a href="/profiles" class="menu-link menu-toggle">
-									<i class="menu-bullet menu-bullet-dot">
-										<span></span>
-									</i>
-									<span class="menu-text">Customers</span>
+									<span class="menu-text">List</span>
 									<i class="menu-arrow"></i>
 								</a>
 							</li>

@@ -62,16 +62,17 @@
     </div>
     <div class="card-body">
         <!--begin: Datatable-->
-        <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+        <table class="table table-bordered table-hover table-checkable" id="customersTable" style="margin-top: 13px !important">
             <thead>
                 <tr>
-                    <th>Order ID</th>
-                    <th>Country</th>
-                    <th>Ship City</th>
-                    <th>Company Name</th>
-                    <th>Ship Date</th>
-                    <th>Status</th>
-                    <th>Type</th>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Avatar</th>
+                    <th>Email</th>
+                    <th>CIN</th>
+                    <th>Phone</th>
+                    <th>Rate</th>
                     <th>Actions</th>
                 </tr>
             </thead>

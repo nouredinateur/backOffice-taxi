@@ -63,22 +63,30 @@
     </div>
     <div class="card-body">
         <!--begin: Datatable-->
-        <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+        <table class="table table-bordered table-hover table-checkable" id="routesTable" style="margin-top: 13px !important">
             <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Country</th>
-                    <th>Ship City</th>
-                    <th>Company Name</th>
-                    <th>Ship Date</th>
-                    <th>Status</th>
-                    <th>Type</th>
-                    <th>Actions</th>
+                <tr id="DT_RowId">
+                    <th>Route ID</th>
+                    <th>Driver ID</th>
+                    <th>Client ID</th>
+                    <th>Starting point</th>
+                    <th>Ending point</th>
+                    <th>Distance</th>
+                    <th>Price</th>
                 </tr>
             </thead>
         </table>
         <!--end: Datatable-->
     </div>
 </div>
+
+
+<script>
+  $('#kt_datatable').on( 'click', 'tr', function () {
+    var id = table.row( this ).id();
+ 
+    alert( 'Clicked row id '+id );
+} );
+</script>
 <!--end::Card-->
 @endsection

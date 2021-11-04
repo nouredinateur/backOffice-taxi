@@ -17,6 +17,10 @@ class Route extends Model
         'distance',
         'price',
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
     public function driver()
     {

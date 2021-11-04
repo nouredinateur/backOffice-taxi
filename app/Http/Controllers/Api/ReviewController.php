@@ -22,8 +22,9 @@ class ReviewController extends Controller
     {
         //get the current authenticated user reviews
        
-        $user = auth()->user();
-        $reviews = $user->getAllRatings($user->id, 'desc');
+        // $user = auth()->user();
+        // $reviews = $user->getAllRatings($user->id, 'desc');
+        $reviews = Review::all();
         return response()->json($reviews);
     }
 

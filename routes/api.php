@@ -28,9 +28,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::apiResource('clients', ClientContoller::class);
+Route::apiResource('clients', ClientContoller::class)->middleware('auth:api,web');
 Route::apiResource('drivers', DriverContoller::class);
-Route::apiResource('reviews', ReviewController::class)->middleware('auth:api,web');
+Route::apiResource('reviews', ReviewController::class);
 Route::apiResource('routes', RouteController::class);
 Route::apiResource('params', ParamController::class);
 
