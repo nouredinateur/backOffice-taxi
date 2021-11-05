@@ -42,9 +42,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //assigning roles
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

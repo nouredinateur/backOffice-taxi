@@ -29,51 +29,52 @@
                         <div class="d-flex flex-column flex-grow-1 font-weight-bold">
                             <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">{{ $user->name }}</a>
                             <span class="text-muted">
-                                {{
-                                     $user->getRoleNames();
-                                }}
+                                @foreach ($roles as $role)     
+                                    @if ($user->hasRole($role->name))
+                                        <div class="checkbox-inline">{{ $role->name }}</div>
+                                    @endif
+                                @endforeach
                             </span>
                         </div>
+                                  <!-- Modal-->
+                                    <div class="modal fade" id="exampleModal-{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Assign Permission</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                    </button>
+                                                </div>
+                                                <form action="">
+                                                    <div class="modal-body">
+                                                        @foreach ($roles as $role)     
+                                                            @if (!$user->hasRole($role->name))
+                                                            <div class="checkbox-inline">
+                                                                <label class="checkbox checkbox-lg">
+                                                                    <input type="checkbox" value="{{ $role->name }}" {{ in_array($role->name, old('role', [])) ? 'checked' : '' }} name="role[]"/>
+                                                                    <span></span>
+                                                                    {{ $role->name }}
+                                                                </label>
+                                                            </div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                         <div>
                             <div class="ml-auto p-5">
-                                <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Assign Role</button>
+                                <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal-{{$user->id}}">Assign Role</button>
                             </div>
                         </div>
-                         <!-- Modal-->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Assign Permission</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                                            </button>
-                                                        </div>
-                                                    
-                                                        <div class="modal-body">
-                                    
-                                                                @if (!$user->hasRole( $user->getRoleNames()))
-                                                                <div class="checkbox-inline">
-                                                                    <label class="checkbox checkbox-lg">
-                                                                        {{-- <input type="checkbox" value="{{ $role->name }}" {{ in_array($role->name, old('role', [])) ? 'checked' : '' }} name="role[]"/>
-                                                                        <span></span>
-                                                                        {{ $role->name }} --}}
-                                                                    </label>
-                                                                </div>
-                                                                @endif
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary font-weight-bold">Save changes</button>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-         
                     </div>
                     @endforeach
-
                 </div>
                 <!--end::Body-->
             </div>

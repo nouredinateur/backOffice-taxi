@@ -47,12 +47,9 @@ class RoleController extends Controller
         $id =$request->id;
         $role = $request->role;
         $permission = $request->permission;
-
         $thisRole = Role::findByName($role);
         $thisRole->revokePermissionTo($permission);
-
         return redirect()->to('roles/'.$id);
-
     }
 
     public function assignPermissions(Request $request , Role $role)
@@ -60,12 +57,9 @@ class RoleController extends Controller
         $id =$request->id;
         $role = $request->role;
         $permission = $request->permission;
-
         $thisRole = Role::findByName($role);
         $thisRole->givePermissionTo($permission);
-
         return redirect()->to('roles/'.$id);
-
     }
     /**
      * Show the form for creating a new resource.
@@ -148,7 +142,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         Role::where('id', $role->id)->delete();
-
         return redirect('/roles');
     }
 }
